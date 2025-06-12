@@ -1,15 +1,17 @@
 # Agentic Ecommerce Application with WhatsApp Voice Interface
 
-This application enables voice-based ecommerce interactions through WhatsApp, supporting regional Indian languages. Users can search for products, manage their cart, and complete purchases entirely through voice commands in their preferred language.
+## Overview
+This project is an agentic ecommerce application that enables users to interact with a shopping assistant via WhatsApp using voice messages in regional Indian languages. The app leverages Sarvam AI for speech processing, LangGraph for agent workflow, and Twilio for WhatsApp integration. It supports product search, shopping cart management, and checkout, all through natural language voice input.
 
 ## Features
 
-- **Multilingual Voice Input**: Accept voice commands in multiple regional Indian languages
-- **Natural Language Understanding**: Extract product requests, quantities, and other details
-- **Retrieval Augmented Generation**: Intelligent product recommendations using RAG
-- **Interactive Shopping Cart**: Build and manage cart throughout the conversation
-- **Voice Responses**: Return responses in the user's language with text and audio
-- **Checkout Process**: Complete transactions within the WhatsApp conversation
+- **WhatsApp Integration**: Receive and respond to user messages (including audio) via WhatsApp using Twilio.
+- **Voice Input in Indian Languages**: Users can send voice messages in their preferred regional language.
+- **Speech-to-Text & Text-to-Speech**: Uses Sarvam AI APIs for accurate speech recognition and synthesis.
+- **Retrieval-Augmented Generation (RAG)**: Identifies product requirements and fetches relevant product information.
+- **Shopping Cart & Checkout**: Manages cart state and handles checkout via conversational flow.
+- **Modular Agent Design**: Built with LangGraph for extensible, maintainable agent workflows.
+- **Robust Error Handling**: Handles audio conversion, API errors, and user feedback gracefully.
 
 ## Architecture
 
@@ -178,15 +180,38 @@ For production deployment:
 4. Use a proper media storage service for audio files
 5. Implement proper authentication and security measures
 
-## Team Assignments
+## Development Best Practices
+- **Python Code Style**: Use `snake_case` for functions/variables, `CapWords` for classes, and type hints throughout.
+- **Modularity**: Keep agent nodes, state, and workflow logic in separate modules for maintainability.
+- **.gitignore**: The provided `.gitignore` excludes debug, build, environment, and sensitive files. Update as needed for your environment.
 
-For the 10-day implementation with 5 team members:
+## File Structure
+- `app.py` — Flask app entry point
+- `src/whatsapp/webhook.py` — WhatsApp webhook and Twilio integration
+- `src/speech_processing/processor.py` — Audio download, conversion, and Sarvam AI integration
+- `src/agents/ecom_agent.py` — LangGraph agent definition and workflow
+- `debug_audio/` — Temporary audio files for debugging
+- `scripts/` — Test and debug scripts
+- `requirements.txt`, `Dockerfile`, `docker-compose.yml` — Environment and dependencies
 
-- **Team Member 1**: WhatsApp Integration & Project Setup
-- **Team Member 2**: Speech Processing & Intent Recognition
-- **Team Member 3**: Product Catalog & RAG Implementation
-- **Team Member 4**: Cart Management & Payment Processing
-- **Team Member 5**: Response Generation & Text-to-Speech
+## Extending the Agent
+- Add new nodes to the agent by defining functions and updating the workflow in `ecom_agent.py`.
+- Use TypedDict for agent state to ensure type safety and clarity.
+- Only return updated keys from node functions to avoid state overwrite.
+
+## Troubleshooting & Debugging
+- Check `debug_audio/` for raw and converted audio files.
+- Review logs for errors in audio processing or webhook handling.
+- Ensure your webhook URL is publicly accessible for Twilio.
+- For local testing, use the scripts in `scripts/`.
+
+## Credits & References
+- [Sarvam AI](https://sarvam.ai/) — Speech-to-text and text-to-speech APIs
+- [LangGraph](https://langgraph.org/) — Agent workflow framework
+- [Twilio](https://www.twilio.com/) — WhatsApp messaging API
+
+---
+For more details, see code comments and docstrings throughout the project.
 
 ## License
 
@@ -194,4 +219,8 @@ For the 10-day implementation with 5 team members:
 
 ## Contributors
 
-- Your Team Member Names Here
+- Amirthalingam Rajasundar (amirthaling1@iisc.ac.in)
+- Abhishek Kushary (abhishekkush@iisc.ac.in)
+- Nitin Kumar (nitink@iisc.ac.in)
+- Vignesh S (vigneshs@iisc.ac.in)
+- Preetam Mishra (preetamm@iisc.ac.in)
