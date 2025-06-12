@@ -1,0 +1,29 @@
+# Core dependencies
+flask==2.0.1
+werkzeug==2.0.1
+python-dotenv==0.19.1
+requests==2.26.0
+gunicorn==20.1.0
+numpy
+
+# WhatsApp integration
+twilio==7.9.1
+
+# Speech processing
+sarvamai==0.1.5
+pydub==0.25.1
+
+# NLP and RAG
+# sentence-transformers==2.2.2
+langchain==0.3.25
+langgraph
+faiss-cpu==1.7.3  # Vector database for product search
+
+# Database
+pymongo==4.0.1
+
+# Payment processing
+razorpay==1.3.0
+
+# Testing
+pytest==7.0.0
