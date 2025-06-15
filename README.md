@@ -85,8 +85,6 @@ agentic-ecom/
    TWILIO_ACCOUNT_SID=your_twilio_sid
    TWILIO_AUTH_TOKEN=your_twilio_token
    TWILIO_WHATSAPP_NUMBER=your_whatsapp_number
-   RAZORPAY_KEY_ID=your_razorpay_key_id
-   RAZORPAY_KEY_SECRET=your_razorpay_secret
    NGROK_AUTH_TOKEN=your_ngrok_auth_token
    ```
 

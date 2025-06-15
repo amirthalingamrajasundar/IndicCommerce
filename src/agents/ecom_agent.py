@@ -1,13 +1,16 @@
 """
 LangGraph agent definition and invocation.
 """
-from typing import TypedDict, Annotated, List
+from typing import Dict, TypedDict, Annotated, List
 import operator
 import logging
 
 from langgraph.graph import StateGraph, END
 
 from src.speech_processing.processor import translate_audio, translate_and_speak
+from src.utils.vector_store import vector_store
+from src.llm.sarvam import chat_completion
+from src.prompts.shopping_assistant import prompt
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -19,7 +22,7 @@ class Response(TypedDict):
     Represents a response to be sent back to the user.
     """
     text: str
-    voice_path: str = None
+    voice_url: str = None
     image_url: str = None
 
 class AgentState(TypedDict):
@@ -29,8 +32,7 @@ class AgentState(TypedDict):
     regional_audio_path: str
     user_language: str
     english_query: str
-    query_embedding: List[float]
-    product: dict
+    products: List[Dict[str, any]]
     llm_response: str
     response: Response
     error_message: str = None
@@ -67,64 +69,43 @@ def convert_speech_to_text_node(state: AgentState):
         logger.error(error_details)
         return {"error_message": f"Speech to text/translation pipeline failed: {str(e)}"}
 
-def text_to_embedding_node(state: AgentState):
-    """
-    Converts the English text (user query) into an embedding.
-    Input: state['english_query']
-    Output: state['query_embedding'] or state['error_message']
-    """
-    logger.info("---CONVERTING TEXT TO EMBEDDING---")
-    english_query = state.get("english_query")
-    if not english_query:
-        return {"error_message": "English query not found in state for embedding."}
-    
-    # Placeholder: Actual implementation will use an embedding model to generate embeddings
-
-    # Dummy implementation
-    state['query_embedding'] = [0.1, 0.2, 0.3] # Dummy embedding
-    logger.debug(f"Query embedding: {state['query_embedding']}")
-    return {"query_embedding": state['query_embedding']}
-
 def query_vector_db_node(state: AgentState):
     """
-    Uses the embedding to query a vector database and identify a relevant product.
-    Input: state['query_embedding']
-    Output: state['product'] or state['error_message']
+    Query the vector database and identify relevant products.
+    Input: state['english_query']
+    Output: state['products'] or state['error_message']
     """
     logger.info("---QUERYING VECTOR DATABASE---")
-    query_embedding = state.get("query_embedding")
-    if not query_embedding:
-        return {"error_message": "Query embedding not found in state for DB query."}
+    english_query = state.get("english_query")
+    if not english_query:
+        return {"error_message": "English query not found in state for DB query."}
+
+    state['products'] = vector_store.search(english_query, limit=3)
 
     # Placeholder: Actual implementation will query a vector database to find relevant products
-
-    # Dummy implementation
-    state['product'] = {
-        "id": "prod1", 
-        "name": "Awesome T-Shirt", 
-        "description": "A very comfortable and stylish t-shirt.", 
-        "price": "₹499", 
-        "image_url": "http://example.com/image.jpg"
-    }
-    logger.debug(f"Relevant product: {state['product']}")
-    return {"product": state['product']}
+    logger.debug(f"Relevant products: {state['products']}")
+    return {"products": state['products']}
 
 def call_llm_node(state: AgentState):
     """
-    Calls the LLM to generate a response based on the user's query and relevant product.
+    Calls the LLM to generate a response based on the user's query and relevant products.
     This is a placeholder function for future LLM integration.
     """
     logger.info("---CALLING LLM---")
-    # Placeholder: Actual implementation will call an LLM to generate a response
-    # For now, we just return a dummy response
-    state['llm_response'] = "Here is a product that matches your query."
+    llm_prompt = prompt.format(
+        query=state.get("english_query", ""),
+        products=state.get("products", [])
+    )
+    state['llm_response'] = chat_completion(
+        prompt=llm_prompt,
+    )
     logger.debug(f"LLM response: {state['llm_response']}")
     return {"llm_response": state['llm_response']}
 
 def generate_response_node(state: AgentState):
     """
     Constructs a response message.
-    Input: state['product']
+    Input: state['products']
     Output: state['response'] or state['error_message']
     """
     logger.info("---GENERATING RESPONSE---")
@@ -132,20 +113,20 @@ def generate_response_node(state: AgentState):
     if not llm_response:
         return {"error_message": "No LLM response."}
 
-    response_text, response_voice_path = translate_and_speak(
+    response_text, response_voice_url = translate_and_speak(
         llm_response,
         "en-IN",
         state.get("user_language")
     )
 
     logger.info(f"Response text: {response_text}")
-    logger.info(f"Response voice path: {response_voice_path}")
-    
+    logger.info(f"Response voice URL: {response_voice_url}")
+
     return {
         "response": {
             "text": response_text,
-            "voice_path": response_voice_path,
-            "image_url": state['product']['image_url']
+            "voice_url": response_voice_url,
+            "image_url": state['products'][0]['image_url'] if state['products'] else None
         }
     }
 
@@ -165,7 +146,6 @@ def handle_error_node(state: AgentState):
 workflow = StateGraph(AgentState)
 
 workflow.add_node("speech_to_text", convert_speech_to_text_node)
-workflow.add_node("text_to_embedding", text_to_embedding_node)
 workflow.add_node("query_vector_db", query_vector_db_node)
 workflow.add_node("call_llm", call_llm_node)
 workflow.add_node("generate_response", generate_response_node)
@@ -177,9 +157,7 @@ workflow.set_entry_point("speech_to_text")
 def decide_next_step(state: AgentState):
     if state.get("error_message"):
         return "error_handler"
-    if not state.get("query_embedding"):
-        return "text_to_embedding"
-    if not state.get("product"):
+    if not state.get("products"):
         return "query_vector_db"
     if not state.get("llm_response"): # Check if response is generated
         return "call_llm"
@@ -191,18 +169,11 @@ workflow.add_conditional_edges(
     "speech_to_text",
     decide_next_step,
     {
-        "text_to_embedding": "text_to_embedding",
-        "error_handler": "error_handler",
-    }
-)
-workflow.add_conditional_edges(
-    "text_to_embedding",
-    decide_next_step,
-    {
         "query_vector_db": "query_vector_db",
         "error_handler": "error_handler",
     }
 )
+
 workflow.add_conditional_edges(
     "query_vector_db",
     decide_next_step,
