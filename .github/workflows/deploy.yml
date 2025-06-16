@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: asia-south1
-  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/indic-commerce
+  IMAGE_NAME: asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/indic-commerce/indic-commerce
 
 jobs:
   deploy:
@@ -24,8 +24,8 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
 
-    - name: Authenticate Docker
-      run: gcloud auth configure-docker
+    - name: Authenticate Docker to Artifact Registry
+      run: gcloud auth configure-docker asia-south1-docker.pkg.dev
 
     - name: Build and Push Docker image
       run: |
@@ -45,7 +45,7 @@ jobs:
         -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
         -var="service_account_id=${{ secrets.GCP_SA_ID }}" \
         -var="region=${{ secrets.GCP_REGION }}" \
-        -var="image=${{ env.IMAGE_NAME }}" \
+        -var="image=${{ secrets.IMAGE_NAME }}" \
         -var="sarvam_api_key=${{ secrets.SARVAM_API_KEY }}" \
         -var="twilio_account_sid=${{ secrets.TWILIO_ACCOUNT_SID }}" \
         -var="twilio_auth_token=${{ secrets.TWILIO_AUTH_TOKEN }}" \
