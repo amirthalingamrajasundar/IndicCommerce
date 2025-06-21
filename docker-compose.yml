@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     ports:
       - "5000:5000"
     environment:
@@ -15,16 +17,22 @@ services:
       - TWILIO_WHATSAPP_NUMBER=${TWILIO_WHATSAPP_NUMBER}
       - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
       - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
     volumes:
       - .:/app
       - ./debug_audio:/app/debug_audio
     restart: unless-stopped
+    command: flask run --host=0.0.0.0 --port=5000 --reload --debugger
     
   ngrok:
     image: ngrok/ngrok:latest
+    env_file:
+      - .env
     environment:
-      # Add your ngrok authentication token here
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+      - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN}
     command: http app:5000
     depends_on:
       - app

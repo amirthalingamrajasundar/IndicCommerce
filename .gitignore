@@ -63,10 +63,6 @@ coverage.xml
 # VS Code
 .vscode/
 
-# Docker
-*.env
-.env.*
-
 # Audio debug files
 debug_audio/
 

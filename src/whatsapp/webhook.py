@@ -10,7 +10,7 @@ from twilio.rest import Client
 from twilio.twiml.messaging_response import Body, Media, Message, MessagingResponse
 
 from src.speech_processing.processor import download_audio_for_sarvam
-from src.agents.ecom_agent import compiled_graph
+from src.agents.ecom_agent import process_text_message, process_voice_message
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -83,14 +83,64 @@ def webhook():
             logger.info(f"Media URL: {media_url}")
             logger.info(f"Media type: {media_type}")
             
+            # Download the audio file from Twilio's URL
             audio_file = download_audio_for_sarvam(media_url)
-
-            agent_response = compiled_graph.invoke({"regional_audio_path": audio_file})
-            response = create_whatsapp_response(agent_response["response"])
+            logger.info(f"Audio downloaded to: {audio_file}")
+            
+            # Process the voice message - this will ensure audio is only sent to Sarvam AI
+            # The modified process_voice_message function now handles Sarvam AI speech-to-text directly
+            agent_response = process_voice_message(audio_file)
+            logger.info(f"Voice processing complete, response: {agent_response}")
+            
+            if isinstance(agent_response, dict) and "text" in agent_response:
+                logger.info(f"Creating WhatsApp response with text: {agent_response['text'][:30]}...")
+                response = create_whatsapp_response(agent_response)
+            else:
+                default_response = {"text": "We have received your voice message, but there was an issue processing it. Please try asking a specific product question."}
+                response = create_whatsapp_response(default_response)
 
         except Exception as e:
             logger.error(f"Error processing voice message: {e}", exc_info=True)                    
             response.message("Sorry, I had trouble processing your voice message. Could you please try again or send a text message instead?")
+    else:
+        try:
+            logger.info(f"Processing text message from {sender_id}")
+            logger.info(f"Text: {incoming_msg[:20]}...")
+            
+            sender_language = request.values.get('Language', 'auto')
+            logger.info(f"Detected language setting for sender: {sender_language}")
+            
+            agent_response = process_text_message(incoming_msg, sender_language)
+            logger.info(f"Text processing complete, agent response keys: {agent_response.keys() if isinstance(agent_response, dict) else 'not a dict'}")
+            
+            # Extract response from different possible structures
+            if isinstance(agent_response, dict):
+                if "text" in agent_response:
+                    response = create_whatsapp_response(agent_response)
+                elif "response" in agent_response:
+                    response = create_whatsapp_response(agent_response["response"])
+                elif "messages" in agent_response and len(agent_response["messages"]) > 0:
+                    assistant_messages = [msg for msg in agent_response["messages"] if msg.get("role") == "assistant"]
+                    if assistant_messages:
+                        last_message = assistant_messages[-1]
+                        text_response = {"text": last_message.get("content", "")}
+                        logger.info(f"Extracted response from messages: {text_response}")
+                        response = create_whatsapp_response(text_response)
+                    else:
+                        default_response = {"text": "We received your message but couldn't generate a proper response. Our system handles over 1,00,000 queries monthly from customers across India. Please try asking about our products directly."}
+                        response = create_whatsapp_response(default_response)
+                else:
+                    default_response = {"text": "We have received your text message, but had trouble processing it. Please try asking a specific product question."}
+                    response = create_whatsapp_response(default_response)
+            else:
+                default_response = {"text": "We have received your text message, but had trouble processing it. Please try again with clearer wording."}
+                response = create_whatsapp_response(default_response)
+        except Exception as e:
+            logger.error(f"Error processing text message: {e}", exc_info=True)
+            response.message("Sorry, I had trouble processing your text message. Could you please try again or send a voice message instead?")
     
     return str(response)
+
+
+
 

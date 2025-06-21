@@ -17,35 +17,36 @@ from src.speech_processing.processor import configure_speech_processing
 # Create Flask app
 app = Flask(__name__)
 
+# Configure components
+configure_whatsapp_routes(app)
+configure_speech_processing()
+
+# Set up test routes
+@app.route('/')
+def index():
+    """Home page for testing."""
+    return """
+    <html>
+        <head>
+            <title>WhatsApp Agentic Ecommerce</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                h1 { color: #4285f4; }
+                .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+            </style>
+        </head>
+        <body>
+            <h1>WhatsApp Agentic Ecommerce</h1>
+            <div class="card">
+                <h2>WhatsApp Webhook</h2>
+                <p>Send 'join lips-swam' to +14155238886</p>
+            </div>
+        </body>
+    </html>
+    """
+
 def initialize_app():
-    """Initialize all application components."""
-    # Configure components
-    configure_whatsapp_routes(app)
-    configure_speech_processing()
-    
-    # Set up test routes
-    @app.route('/')
-    def index():
-        """Home page for testing."""
-        return """
-        <html>
-            <head>
-                <title>WhatsApp Agentic Ecommerce</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-                    h1 { color: #4285f4; }
-                    .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-                </style>
-            </head>
-            <body>
-                <h1>WhatsApp Agentic Ecommerce</h1>
-                <div class="card">
-                    <h2>WhatsApp Webhook</h2>
-                    <p>Send 'join lips-swam' to +14155238886</p>
-                </div>
-            </body>
-        </html>
-        """
+    """Initialize all application components for manual running."""
     return app
 
 if __name__ == "__main__":
