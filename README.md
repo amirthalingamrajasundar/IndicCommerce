@@ -1,4 +1,4 @@
-# Agentic Ecommerce Application with WhatsApp Voice Interface
+# Voice-Based Agentic Ecommerce in Regional Indian Languages
 
 ## Overview
 This project is an agentic ecommerce application that enables users to interact with a shopping assistant via WhatsApp using voice messages in regional Indian languages. The app leverages Sarvam AI for speech processing, LangGraph for agent workflow, and Twilio for WhatsApp integration. It supports product search, shopping cart management, and checkout, all through natural language voice input.
@@ -85,8 +85,6 @@ agentic-ecom/
    TWILIO_ACCOUNT_SID=your_twilio_sid
    TWILIO_AUTH_TOKEN=your_twilio_token
    TWILIO_WHATSAPP_NUMBER=your_whatsapp_number
-   RAZORPAY_KEY_ID=your_razorpay_key_id
-   RAZORPAY_KEY_SECRET=your_razorpay_secret
    NGROK_AUTH_TOKEN=your_ngrok_auth_token
    ```
 

@@ -33,29 +33,71 @@ def configure_whatsapp_routes(app):
     """Configure WhatsApp webhook routes."""
     app.register_blueprint(whatsapp_blueprint)
 
-def create_whatsapp_response(agent_response):
+def send_whatsapp_messages(to_number, agent_response):
     """
-    Create a WhatsApp response message based on the agent's response.
-    
+    Sends text, image, and audio messages separately using Twilio REST API.
+
     Args:
-        agent_response: The response from the agent.
-        
-    Returns:
-        MessagingResponse: The Twilio MessagingResponse object.
+        to_number: The recipient WhatsApp number (e.g., 'whatsapp:+919xxxxxx').
+        agent_response: A dict containing keys like 'text', 'image_url', 'voice_url'.
     """
-    response = MessagingResponse()
+    logger.info(f"Creating WhatsApp response: {agent_response}")
+    
+    from_whatsapp_number = 'whatsapp:' + os.environ.get('TWILIO_WHATSAPP_NUMBER')
 
     if 'text' in agent_response:
-        text_message = Message()
-        text_message.body(agent_response['text'])
-        response.append(text_message)
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            body=agent_response['text']
+        )
 
-    if 'voice_path' in agent_response:
-        audio_message = Message()
-        audio_message.media(agent_response['voice_path'])
-        response.append(audio_message)
+    if 'image_url' in agent_response:
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            media_url=[agent_response['image_url']]
+        )
+
+    if 'voice_url' in agent_response:
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            media_url=[agent_response['voice_url']]
+        )
+
+# def create_whatsapp_response(agent_response):
+#     """
+#     Create a WhatsApp response message based on the agent's response.
     
-    return response
+#     Args:
+#         agent_response: The response from the agent.
+        
+#     Returns:
+#         MessagingResponse: The Twilio MessagingResponse object.
+#     """
+#     response = MessagingResponse()
+
+#     logger.info(f"Creating WhatsApp response: {agent_response}")
+
+#     if 'voice_url' in agent_response:
+#         audio_message = Message()
+#         audio_message.media(agent_response['voice_url'])
+#         response.append(audio_message)
+    
+#     if 'text' in agent_response:
+#         text_message = Message()
+#         text_message.body(agent_response['text'])
+#         response.append(text_message)
+    
+#     if 'image_url' in agent_response:
+#         image_message = Message()
+#         image_message.media(agent_response['image_url'])
+#         response.append(image_message)
+
+#     logger.info(f"WhatsApp response created: {response}")
+
+#     return response
 
 @whatsapp_blueprint.route('/webhook', methods=['POST'])
 def webhook(): 

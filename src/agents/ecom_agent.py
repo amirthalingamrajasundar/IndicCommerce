@@ -8,6 +8,9 @@ from typing import TypedDict, List, Dict, Any, Optional
 from langgraph.graph import StateGraph, END
 from openai import OpenAI
 from src.speech_processing.processor import translate_audio, translate_and_speak, text_to_speech, sarvam_client
+from src.utils.vector_store import vector_store
+from src.llm.sarvam import chat_completion
+from src.prompts.shopping_assistant import prompt
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,7 +23,7 @@ class Response(TypedDict):
     Represents a response to be sent back to the user.
     """
     text: str
-    voice_path: str = None
+    voice_url: str = None
     image_url: str = None
 
 class AgentState(TypedDict):
