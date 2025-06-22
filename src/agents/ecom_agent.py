@@ -8,9 +8,10 @@ import logging
 from langgraph.graph import StateGraph, END
 
 from src.speech_processing.processor import translate_audio, translate_and_speak
-from src.utils.vector_store import vector_store
+from src.utils.vector_store import get_vector_store
 from src.llm.sarvam import chat_completion
-from src.prompts.shopping_assistant import prompt
+from src.prompts.shopping_assistant import get_prompt
+from src.db.firestore import FirestoreClient
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -31,13 +32,42 @@ class AgentState(TypedDict):
     """
     regional_audio_path: str
     user_language: str
+    cart: List[str]  # List of product ids in the user's cart
+    history: List[Dict[str, str]]  # List of previous interactions
     english_query: str
-    products: List[Dict[str, any]]
+    products: List[dict]
     llm_response: str
     response: Response
     error_message: str = None
+    user_id: str  # Unique identifier for the user
 
 # Define Nodes
+
+def get_user_info_node(state: AgentState):
+    """
+    Retrieves user information from Firestore.
+    Input: state['user_id']
+    Output: state['user_language'] or state['error_message']
+    """
+    logger.info("---RETRIEVING USER INFO---")
+    user_id = state.get("user_id")
+
+    if not user_id:
+        return {"error_message": "User ID not found in state for user info retrieval."}
+
+    try:
+        # Initialize Firestore client
+        firestore_client = FirestoreClient()
+        user_data = firestore_client.get_full_user_data(user_id)
+        if not user_data:
+            logger.warning(f"No user data found for user_id: {user_id}")
+        logger.debug(f"User data: {user_data}")
+        state['user_language'] = user_data.get("preferred-language", "en-IN")
+        state['history'] = user_data.get("history", [])
+        state['cart'] = user_data.get("cart", [])
+    except Exception as e:
+        logger.error(f"Error fetching user data: {e}")
+        state['error_message'] = str(e)
 
 def convert_speech_to_text_node(state: AgentState):
     """
@@ -77,12 +107,14 @@ def query_vector_db_node(state: AgentState):
     """
     logger.info("---QUERYING VECTOR DATABASE---")
     english_query = state.get("english_query")
+
     if not english_query:
         return {"error_message": "English query not found in state for DB query."}
 
-    state['products'] = vector_store.search(english_query, limit=3)
+    vector_store = get_vector_store()
+    products = vector_store.search(english_query, limit=3)
 
-    # Placeholder: Actual implementation will query a vector database to find relevant products
+    state['products'] = products
     logger.debug(f"Relevant products: {state['products']}")
     return {"products": state['products']}
 
@@ -92,14 +124,25 @@ def call_llm_node(state: AgentState):
     This is a placeholder function for future LLM integration.
     """
     logger.info("---CALLING LLM---")
-    llm_prompt = prompt.format(
-        query=state.get("english_query", ""),
-        products=state.get("products", [])
+    english_query = state.get("english_query")
+    products = state.get("products", [])
+    llm_prompt = get_prompt(
+        history=state.get("history", []),
+        products=products,
+        query=english_query,
     )
+    logger.debug(f"LLM prompt: {llm_prompt}")
     state['llm_response'] = chat_completion(
         prompt=llm_prompt,
     )
-    logger.debug(f"LLM response: {state['llm_response']}")
+    # Store conversation
+    # Initialize Firestore client
+    firestore_client = FirestoreClient()
+    firestore_client.save_conversation(state["user_id"], [
+        {"role": "user", "content": english_query},
+        {"role": "assistant", "content": state['llm_response']},
+    ])
+    logger.info(f"LLM response: {state['llm_response']}")
     return {"llm_response": state['llm_response']}
 
 def generate_response_node(state: AgentState):
@@ -110,6 +153,7 @@ def generate_response_node(state: AgentState):
     """
     logger.info("---GENERATING RESPONSE---")
     llm_response = state.get("llm_response")
+
     if not llm_response:
         return {"error_message": "No LLM response."}
 
@@ -119,16 +163,16 @@ def generate_response_node(state: AgentState):
         state.get("user_language")
     )
 
+    state['response'] = {
+        "text": response_text,
+        "voice_url": response_voice_url,
+        "image_url": state['products'][0]['image_url'] if state['products'] else None
+    }
+
     logger.info(f"Response text: {response_text}")
     logger.info(f"Response voice URL: {response_voice_url}")
 
-    return {
-        "response": {
-            "text": response_text,
-            "voice_url": response_voice_url,
-            "image_url": state['products'][0]['image_url'] if state['products'] else None
-        }
-    }
+    return {"response": state['response']}
 
 def handle_error_node(state: AgentState):
     """
@@ -145,6 +189,8 @@ def handle_error_node(state: AgentState):
 # Define Graph
 workflow = StateGraph(AgentState)
 
+# TODO: Intent identification node - Router
+workflow.add_node("get_user_info", get_user_info_node)
 workflow.add_node("speech_to_text", convert_speech_to_text_node)
 workflow.add_node("query_vector_db", query_vector_db_node)
 workflow.add_node("call_llm", call_llm_node)
@@ -152,11 +198,13 @@ workflow.add_node("generate_response", generate_response_node)
 workflow.add_node("error_handler", handle_error_node)
 
 # Define Edges
-workflow.set_entry_point("speech_to_text")
+workflow.set_entry_point("get_user_info")
 
 def decide_next_step(state: AgentState):
     if state.get("error_message"):
         return "error_handler"
+    if not state.get("english_query"):
+        return "speech_to_text"
     if not state.get("products"):
         return "query_vector_db"
     if not state.get("llm_response"): # Check if response is generated
@@ -164,6 +212,15 @@ def decide_next_step(state: AgentState):
     if not state.get("response"):
         return "generate_response"
     return END
+
+workflow.add_conditional_edges(
+    "get_user_info",
+    decide_next_step,
+    {
+        "speech_to_text": "speech_to_text",
+        "error_handler": "error_handler",
+    } 
+)
 
 workflow.add_conditional_edges(
     "speech_to_text",

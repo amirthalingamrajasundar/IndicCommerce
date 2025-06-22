@@ -2,12 +2,11 @@
 WhatsApp webhook handler for receiving and processing messages.
 """
 
-from flask import Blueprint, request, Response
-import json
+from flask import Blueprint, request
 import os
 import logging
 from twilio.rest import Client
-from twilio.twiml.messaging_response import Body, Media, Message, MessagingResponse
+from twilio.twiml.messaging_response import MessagingResponse
 
 from src.speech_processing.processor import download_audio_for_sarvam
 from src.agents.ecom_agent import compiled_graph
@@ -66,39 +65,6 @@ def send_whatsapp_messages(to_number, agent_response):
             media_url=[agent_response['voice_url']]
         )
 
-# def create_whatsapp_response(agent_response):
-#     """
-#     Create a WhatsApp response message based on the agent's response.
-    
-#     Args:
-#         agent_response: The response from the agent.
-        
-#     Returns:
-#         MessagingResponse: The Twilio MessagingResponse object.
-#     """
-#     response = MessagingResponse()
-
-#     logger.info(f"Creating WhatsApp response: {agent_response}")
-
-#     if 'voice_url' in agent_response:
-#         audio_message = Message()
-#         audio_message.media(agent_response['voice_url'])
-#         response.append(audio_message)
-    
-#     if 'text' in agent_response:
-#         text_message = Message()
-#         text_message.body(agent_response['text'])
-#         response.append(text_message)
-    
-#     if 'image_url' in agent_response:
-#         image_message = Message()
-#         image_message.media(agent_response['image_url'])
-#         response.append(image_message)
-
-#     logger.info(f"WhatsApp response created: {response}")
-
-#     return response
-
 @whatsapp_blueprint.route('/webhook', methods=['POST'])
 def webhook(): 
     """Handle incoming WhatsApp messages."""
@@ -127,7 +93,10 @@ def webhook():
             
             audio_file = download_audio_for_sarvam(media_url)
 
-            agent_response = compiled_graph.invoke({"regional_audio_path": audio_file})
+            agent_response = compiled_graph.invoke({
+                "user_id": sender_id, 
+                "regional_audio_path": audio_file
+            })
             response = send_whatsapp_messages(sender_id, agent_response["response"])
 
         except Exception as e:

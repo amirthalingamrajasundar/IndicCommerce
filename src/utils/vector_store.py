@@ -3,8 +3,7 @@ Vector store utilities using LangChain-Chroma with OpenAI embeddings.
 """
 import os
 import logging
-import chromadb
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
@@ -12,15 +11,24 @@ from langchain_openai import OpenAIEmbeddings
 from src.utils.ngrok import get_ngrok_url_with_retry
 from src.data.sample_products import products as sample_products
 
+PERSIST_DIRECTORY = '../../chroma_db'
+
 logger = logging.getLogger(__name__)
 
 class VectorStore:
     """Vector store for product search using LangChain-Chroma."""
-    
-    def __init__(self):
+
+    def __init__(self, persist_directory: str):
         """Initialize the in-memory Chroma vector store."""
         self.embeddings = OpenAIEmbeddings()
         self.vector_store = None
+
+        # Get the directory of the current script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        # Construct the persistence directory path relative to the script's location
+        persist_directory = os.path.join(script_dir, persist_directory)
+        self.persist_directory = persist_directory
+        
         self.initialized = False
     
     def add_test_products(self):
@@ -31,14 +39,14 @@ class VectorStore:
     def initialize_collection(self, collection_name: str = "products"):
         """Initialize or get the collection."""
         try:
-            # Create an in-memory Chroma instance
+            logger.info(f"Initializing Chroma collection '{collection_name}' with persistence directory '{self.persist_directory}'...")
+            
             self.vector_store = Chroma(
                 collection_name=collection_name,
                 embedding_function=self.embeddings,
-                persist_directory=None  # In-memory only
+                persist_directory=self.persist_directory,
             )
             self.initialized = True
-            self.add_test_products()  # Add sample products for testing
             logger.info(f"LangChain-Chroma collection '{collection_name}' initialized.")
             return True
         except Exception as e:
@@ -103,5 +111,13 @@ class VectorStore:
             logger.error(f"Error searching vector store: {e}")
             return []
 
-vector_store = VectorStore()
-vector_store.initialize_collection()
+
+vector_store = None
+
+def get_vector_store(persist_directory: str = PERSIST_DIRECTORY):
+    logger.info("Getting vector store instance...")
+    global vector_store
+    if vector_store is None:
+        vector_store = VectorStore(persist_directory=persist_directory)
+        vector_store.initialize_collection()
+    return vector_store
