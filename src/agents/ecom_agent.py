@@ -1,11 +1,12 @@
 """
 LangGraph agent definition and invocation.
 """
-from typing import Dict, TypedDict, Annotated, List
-import operator
+from typing import Dict, TypedDict, List
+import os
 import logging
-
+import json
 from langgraph.graph import StateGraph, END
+from openai import OpenAI
 
 from src.speech_processing.processor import translate_audio, translate_and_speak
 from src.utils.vector_store import vector_store
@@ -13,8 +14,11 @@ from src.llm.sarvam import chat_completion
 from src.prompts.shopping_assistant import prompt
 
 # Set up logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+llmmodel = "gpt-4o-mini"
 
 # Define Agent State
 class Response(TypedDict):
@@ -36,6 +40,12 @@ class AgentState(TypedDict):
     llm_response: str
     response: Response
     error_message: str = None
+    intent_type: str = None
+    confidence: float = None
+    search_terms: str = None
+    product_id: str = None
+    cart_action: str = None
+    quantity: int = None
 
 # Define Nodes
 
@@ -76,15 +86,20 @@ def query_vector_db_node(state: AgentState):
     Output: state['products'] or state['error_message']
     """
     logger.info("---QUERYING VECTOR DATABASE---")
-    english_query = state.get("english_query")
-    if not english_query:
-        return {"error_message": "English query not found in state for DB query."}
+    try:
+        english_query = state.get("english_query")
+        if not english_query:
+            return {"error_message": "English query not found in state for DB query."}
 
-    state['products'] = vector_store.search(english_query, limit=3)
+        state['products'] = vector_store.search(english_query, limit=3)
 
-    # Placeholder: Actual implementation will query a vector database to find relevant products
-    logger.debug(f"Relevant products: {state['products']}")
-    return {"products": state['products']}
+        # Placeholder: Actual implementation will query a vector database to find relevant products
+        logger.debug(f"Relevant products: {state['products']}")
+        return {"products": state['products']}
+    except Exception as e:
+        return {
+            "error_message": f"Error in query_vector_db_node: {e}"
+        }
 
 def call_llm_node(state: AgentState):
     """
@@ -141,6 +156,102 @@ def handle_error_node(state: AgentState):
         "llm_response": "Sorry, I encountered an error while processing your request. Please try again later.",
         "error_message": error # Keep the error message for logging
     }
+    
+def identify_intent_node(state: AgentState):
+    """Identify the specific intent of the user query"""
+    logger.info("Identifying user intent")
+    
+    english_query = state.get("english_query", "")
+    user_language = state.get("user_language", "en-IN")
+    
+    if not english_query:
+        logger.error("No query found for intent identification")
+        return {"error_message": "No query found for intent identification"}
+    
+    try:
+        messages = [
+            {"role": "system", "content": "You are an intent classifier for an Indian e-commerce platform. Classify the query into one of these categories:\r\n1. product_query: User is searching for or asking about products to purchase\r\n2. summarize_cart: User wants summarize all the existing product added the cart currently\r\n3. cart_update: User wants to add or remove products from their shopping cart\r\n4.initiate_payment: User wants to initiate payment for their order\r\n5. general_info: User is asking general questions about policies, availability, etc.\r\n\r\nConsider Indian e-commerce context like 'Cash on Delivery', Indian brands, and regional preferences."}
+        ]
+        
+        lang_note = f"The original query was in {user_language}" if user_language != "en-IN" and user_language != "en" else ""
+        
+        messages.append({"role": "user", "content": f"Query: {english_query} {lang_note}\n\nClassify this query into one of the 5 categories. Reply with JSON containing:\n- intent_type (string: 'product_query', 'summarize_cart', 'cart_update', 'initiate_payment', or 'general_info')\n- confidence (number between 0-1)\n- search_terms (string, relevant only for product_query)\n- product_id (string, relevant only for cart_update, empty string if not found)\n- cart_action (string, 'add' or 'remove', relevant only for cart_update, empty string if not applicable)\n- quantity (number, relevant only for cart_update, default to 1)"})        
+        response = client.chat.completions.create(
+            model=llmmodel, 
+            messages=messages,
+            response_format={"type": "json_object"}
+        )
+        
+        intent_data = json.loads(response.choices[0].message.content)
+        confidence = intent_data.get("confidence", 0.0)
+        intent_type = intent_data.get("intent_type", "")
+        product_id = intent_data.get("product_id", "")
+        cart_action = intent_data.get("cart_action", "add")
+        quantity = intent_data.get("quantity", 1)
+        
+        logger.info(f"Intent classification: Type = {intent_type}, Confidence = {confidence}")
+        if intent_type == "cart_update":
+            logger.info(f"Cart update: Action = {cart_action}, Product ID = {product_id}, Quantity = {quantity}")
+        
+        # Update state with all relevant fields
+        state["intent_type"] = intent_type
+        state["confidence"] = confidence
+        
+        # Add intent-specific fields
+        state["product_id"] = product_id
+        state["cart_action"] = cart_action
+        state["quantity"] = quantity
+        
+        is_product = (intent_type == "product_query")
+
+        logger.info(f"Intent processing complete: intent_type={intent_type}")
+        return {
+            "intent_type": intent_type,
+            "confidence": confidence,
+            "product_id": product_id,
+            "cart_action": cart_action,
+            "quantity": quantity,
+            "is_product": is_product
+        }
+            
+    except Exception as e:
+        logger.error(f"Error in intent classification: {e}")
+        state["intent_type"] = ""
+        state["search_terms"] = english_query
+        state["confidence"] = 0.5
+        return {
+            "error_message": f"Error in intent classification: {e}"
+        }
+
+def get_intent_type(state: AgentState) -> str:  
+    intent_type = state.get('intent_type', "product_query")
+    logger.info(f"ROUTING DECISION: Intent type = {intent_type}")   
+    
+    # These must match the exact keys in the conditional edges dictionary
+    valid_intents = ["product_query", "cart_update", "summarize_cart", "initiate_payment", "general_info"]
+    
+    if not intent_type or intent_type not in valid_intents:
+        logger.warning(f"Invalid intent type '{intent_type}', using fallback to product_query")
+        # Always return a valid value that matches your edge routing dictionary
+        return "product_query"
+    
+    return intent_type
+
+def handle_cart_update(state: AgentState):
+    #TODO: implement this function
+    logger.info("Handling cart update")
+    return {}
+
+def handle_summarize_cart(state: AgentState):
+    #TODO: implement this function
+    logger.info("Handling summarize cart")
+    return {}
+
+def handle_initiate_payment(state: AgentState):
+    #TODO: implement this function
+    logger.info("handling payment initiation")
+    return {}
+    
 
 # Define Graph
 workflow = StateGraph(AgentState)
@@ -150,44 +261,83 @@ workflow.add_node("query_vector_db", query_vector_db_node)
 workflow.add_node("call_llm", call_llm_node)
 workflow.add_node("generate_response", generate_response_node)
 workflow.add_node("error_handler", handle_error_node)
+workflow.add_node("identify_intent", identify_intent_node)
+workflow.add_node("handle_cart_update", handle_cart_update)
+workflow.add_node("handle_summarize_cart", handle_summarize_cart)
+workflow.add_node("handle_initiate_payment", handle_initiate_payment)
+
 
 # Define Edges
 workflow.set_entry_point("speech_to_text")
 
-def decide_next_step(state: AgentState):
+def check_for_error(state: AgentState):
     if state.get("error_message"):
         return "error_handler"
-    if not state.get("products"):
-        return "query_vector_db"
-    if not state.get("llm_response"): # Check if response is generated
-        return "call_llm"
-    if not state.get("response"):
-        return "generate_response"
-    return END
+    else:
+        return "DEFAULT"  
 
 workflow.add_conditional_edges(
     "speech_to_text",
-    decide_next_step,
+    check_for_error,
     {
-        "query_vector_db": "query_vector_db",
-        "error_handler": "error_handler",
+        "DEFAULT": "identify_intent",
+        "error_handler": "error_handler"
     }
 )
 
 workflow.add_conditional_edges(
     "query_vector_db",
-    decide_next_step,
+    check_for_error,
     {
-        "call_llm": "call_llm",
+        "DEFAULT": "call_llm",
         "error_handler": "error_handler",
     }
 )
 workflow.add_conditional_edges(
     "call_llm",
-    decide_next_step,
+    check_for_error,
     {
-        "generate_response": "generate_response",
+        "DEFAULT": "generate_response",
         "error_handler": "error_handler",
+    }
+)
+
+workflow.add_conditional_edges(
+    "identify_intent",
+    get_intent_type,
+    {
+        "product_query": "query_vector_db",
+        "cart_update": "handle_cart_update",
+        "summarize_cart": "handle_summarize_cart",
+        "general_info": "error_handler",
+        "initiate_payment": "handle_initiate_payment"
+    }
+)
+
+workflow.add_conditional_edges(
+    "handle_cart_update",
+    check_for_error,
+    {
+        "DEFAULT": "generate_response",
+        "error_handler": "error_handler"
+    }
+)
+
+workflow.add_conditional_edges(
+    "handle_summarize_cart",
+    check_for_error,
+    {
+        "DEFAULT": "generate_response",
+        "error_handler": "error_handler"
+    }
+)
+
+workflow.add_conditional_edges(
+    "handle_initiate_payment",
+    check_for_error,
+    {
+        "DEFAULT": "generate_response",
+        "error_handler": "error_handler"
     }
 )
 

@@ -5,6 +5,7 @@ python-dotenv==0.19.1
 requests==2.26.0
 gunicorn==20.1.0
 numpy
+openai==1.82.1
 
 # WhatsApp integration
 twilio==7.9.1
