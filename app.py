@@ -5,6 +5,7 @@ This file initializes all components and starts the Flask server.
 
 import os
 from flask import Flask, render_template, request
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -19,6 +20,22 @@ from src.utils.vector_store import get_vector_store
 
 # Create Flask app
 app = Flask(__name__)
+
+
+# Configure CORS
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://amirth.dev",
+            "https://www.amirth.dev",
+            "https://showstack-six.vercel.app",
+            "http://localhost:3000",
+        ],
+        "supports_credentials": True,
+        "methods": ["*"],
+        "allow_headers": ["*"]
+    }
+})
 
 def initialize_app():
     """Initialize all application components."""
@@ -95,7 +112,4 @@ def initialize_app():
 
     return app
 
-if __name__ == "__main__":
-    app = initialize_app()
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+initialize_app()

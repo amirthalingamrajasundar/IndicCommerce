@@ -1,20 +1,21 @@
 # Core dependencies
-flask==2.0.1
-werkzeug==2.0.1
-python-dotenv==0.19.1
-requests==2.26.0
-gunicorn==20.1.0
+flask
+flask_cors
+werkzeug
+python-dotenv
+requests
+gunicorn
 numpy
 
 # WhatsApp integration
-twilio==7.9.1
+twilio
 
 # Speech processing
-sarvamai==0.1.5
-pydub==0.25.1
+sarvamai
+pydub
 
 # NLP and RAG
-langchain==0.3.25
+langchain
 langchain-openai
 langchain-chroma
 langgraph
@@ -26,10 +27,10 @@ google-cloud-storage
 google-cloud-firestore
 
 # Payment processing
-# razorpay==1.3.0
+# razorpay
 
 # Testing
-pytest==7.0.0
-coverage==7.4.0
-pytest-cov==4.1.0
-pytest-mock==3.12.0
+pytest
+coverage
+pytest-cov
+pytest-mock

@@ -44,6 +44,18 @@ resource "google_cloud_run_service" "app" {
           container_port = 5000
         }
         env {
+          name  = "ENV"
+          value = var.env
+        }
+        env {
+          name  = "DB_NAME"
+          value = var.db_name
+        }
+        env {
+          name  = "SCHEMA_NAME"
+          value = var.schema_name
+        }
+        env {
           name  = "GCP_PROJECT_ID"
           value = var.project_id
         }
@@ -95,7 +107,7 @@ resource "google_cloud_run_service_iam_member" "noauth" {
 }
 
 resource "google_firestore_database" "firestore" {
-  name   = var.firestore_database_name
+  name   = var.db_name
   location_id = var.region
   project = var.project_id
   type   = "FIRESTORE_NATIVE"

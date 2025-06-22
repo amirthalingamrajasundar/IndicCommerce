@@ -1,3 +1,9 @@
+variable "env" {
+  description = "The environment for deployment (e.g., dev, prod)"
+  type        = string
+  default     = "prod"
+}
+
 variable "project_id" {
   description = "The ID of the GCP project"
   type        = string
@@ -18,8 +24,13 @@ variable "image" {
   type        = string
 }
 
-variable "firestore_database_name" {
+variable "db_name" {
   description = "The name of the Firestore database"
+  type        = string
+}
+
+variable "schema_name" {
+  description = "The name of the Firestore schema"
   type        = string
 }
 
