@@ -1,0 +1,788 @@
+{
+  "total_cases": 80,
+  "correct_classifications": 15,
+  "overall_accuracy": 0.1875,
+  "class_metrics": {
+    "product_query": {
+      "count": 19,
+      "correct": 10,
+      "accuracy": 0.5263157894736842
+    },
+    "cart_update": {
+      "count": 14,
+      "correct": 1,
+      "accuracy": 0.07142857142857142
+    },
+    "summarize_cart": {
+      "count": 13,
+      "correct": 3,
+      "accuracy": 0.23076923076923078
+    },
+    "initiate_payment": {
+      "count": 13,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "general_info": {
+      "count": 20,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "error": {
+      "count": 1,
+      "correct": 1,
+      "accuracy": 1.0
+    }
+  },
+  "confusion_matrix": {
+    "product_query": {
+      "product_query": 10,
+      "cart_update": 0,
+      "summarize_cart": 0,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 9
+    },
+    "cart_update": {
+      "product_query": 0,
+      "cart_update": 1,
+      "summarize_cart": 0,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 13
+    },
+    "summarize_cart": {
+      "product_query": 0,
+      "cart_update": 0,
+      "summarize_cart": 3,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 10
+    },
+    "initiate_payment": {
+      "product_query": 0,
+      "cart_update": 0,
+      "summarize_cart": 0,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 13
+    },
+    "general_info": {
+      "product_query": 1,
+      "cart_update": 0,
+      "summarize_cart": 0,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 19
+    },
+    "error": {
+      "product_query": 0,
+      "cart_update": 0,
+      "summarize_cart": 0,
+      "initiate_payment": 0,
+      "general_info": 0,
+      "error": 1
+    }
+  },
+  "detailed_results": [
+    {
+      "query": "I want to buy a new phone",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "Show me red sarees",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "What are the best laptops under 50000 rupees?",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "Do you have Nike shoes?",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I'm looking for kitchen appliances",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Show me Banarasi silk sarees",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "Search for Patanjali products",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "I need a washing machine with dryer",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Are OnePlus mobiles available?",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Show me cotton kurtas for men",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Find me good quality spices",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "Do you sell Ayurvedic medicines?",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Looking for gold jewelry",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "I need a good pressure cooker",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "Show me Diwali gift hampers",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Add this product to my cart",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Remove the blue shirt from my cart",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I want to buy 3 of these",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Please add 2 more of this item",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Delete all items from my cart",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Increase the quantity of rice to 5kg",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Remove Himalaya face wash from cart",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I'd like to add this dupatta to my cart",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Add a dozen bananas to my order",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Put this masala in my basket",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I don't want the Haldiram's snacks anymore",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Change quantity of dal to 2kg",
+      "language": "en-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What's in my cart?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Show me my shopping cart",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Can you tell me what I've added so far?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "List all items in my cart",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What is my cart total?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "How many items are in my basket?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Show me the contents of my cart",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What am I buying today?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Review my shopping list",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What's the total cost of my items?",
+      "language": "en-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I want to checkout",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Process my payment",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Pay with cash on delivery",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Can I pay using UPI?",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Complete my order",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Proceed to payment",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I want to pay through PhonePe",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Do you accept RuPay cards?",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Is Bharat QR payment available?",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I'd like to use my SBI debit card",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Does COD have extra charges?",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I want to use EMI option",
+      "language": "en-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What is your return policy?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "How long does shipping take?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Do you deliver to Chennai?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Is COD available?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "How to contact customer service?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What are your store timings?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Do you have any Diwali offers?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "How do I track my order?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What is the warranty period for electronics?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Do you have any offline stores in Mumbai?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Is there a minimum order value for free shipping?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "How can I return a damaged product?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Do you ship internationally?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "What's your GST number?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Are you open during lockdown?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "I like this",
+      "language": "en-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Can you help me?",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Yes",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "No",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "Maybe",
+      "language": "en-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "product_query",
+      "confidence": 0.8,
+      "is_correct": false
+    },
+    {
+      "query": "",
+      "language": "en-IN",
+      "expected_intent": "error",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": true
+    },
+    {
+      "query": "\u092e\u0941\u091d\u0947 \u090f\u0915 \u0928\u092f\u093e \u092b\u094b\u0928 \u091a\u093e\u0939\u093f\u090f",
+      "language": "hi-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "\u092e\u0947\u0930\u0947 \u0915\u093e\u0930\u094d\u091f \u092e\u0947\u0902 \u0915\u094d\u092f\u093e \u0939\u0948?",
+      "language": "hi-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "\u0907\u0938\u0947 \u092e\u0947\u0930\u0947 \u0915\u093e\u0930\u094d\u091f \u092e\u0947\u0902 \u0921\u093e\u0932\u0947\u0902",
+      "language": "hi-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "\u0911\u0930\u094d\u0921\u0930 \u092a\u0942\u0930\u093e \u0915\u0930\u0947\u0902",
+      "language": "hi-IN",
+      "expected_intent": "initiate_payment",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "\u0b8e\u0ba9\u0bcd \u0b95\u0bbe\u0bb0\u0bcd\u0b9f\u0bcd\u0b9f\u0bbf\u0bb2\u0bcd \u0b8e\u0ba9\u0bcd\u0ba9 \u0b87\u0bb0\u0bc1\u0b95\u0bcd\u0b95\u0bbf\u0bb1\u0ba4\u0bc1?",
+      "language": "ta-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "\u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0bae\u0bca\u0baa\u0bc8\u0bb2\u0bcd \u0baa\u0bcb\u0ba9\u0bcd \u0bb5\u0bbe\u0b99\u0bcd\u0b95 \u0bb5\u0bbf\u0bb0\u0bc1\u0bae\u0bcd\u0baa\u0bc1\u0b95\u0bbf\u0bb1\u0bc7\u0ba9\u0bcd",
+      "language": "ta-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "\u0c08 \u0c09\u0c24\u0c4d\u0c2a\u0c24\u0c4d\u0c24\u0c3f\u0c28\u0c3f \u0c28\u0c3e \u0c15\u0c3e\u0c30\u0c4d\u0c1f\u0c4d\u200c\u0c15\u0c3f \u0c1c\u0c4b\u0c21\u0c3f\u0c02\u0c1a\u0c02\u0c21\u0c3f",
+      "language": "te-IN",
+      "expected_intent": "cart_update",
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "\u0d24\u0d3f\u0d30\u0d3f\u0d1a\u0d4d\u0d1a\u0d2f\u0d2f\u0d4d\u0d15\u0d4d\u0d15\u0d7d \u0d28\u0d2f\u0d02 \u0d0e\u0d28\u0d4d\u0d24\u0d3e\u0d23\u0d4d?",
+      "language": "ml-IN",
+      "expected_intent": "general_info",
+      "actual_intent": "error",
+      "confidence": 0.0,
+      "is_correct": false
+    },
+    {
+      "query": "\u0986\u09ae\u09bf \u098f\u0995\u099f\u09bf \u09a8\u09a4\u09c1\u09a8 \u09ae\u09cb\u09ac\u09be\u0987\u09b2 \u0995\u09bf\u09a8\u09a4\u09c7 \u099a\u09be\u0987",
+      "language": "bn-IN",
+      "expected_intent": "product_query",
+      "actual_intent": "product_query",
+      "confidence": 0.95,
+      "is_correct": true
+    },
+    {
+      "query": "\u0986\u09ae\u09be\u09b0 \u0995\u09be\u09b0\u09cd\u099f\u09c7 \u0995\u09c0 \u0995\u09c0 \u0986\u099b\u09c7?",
+      "language": "bn-IN",
+      "expected_intent": "summarize_cart",
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
+    }
+  ],
+  "regional_metrics": {
+    "total": 10,
+    "correct": 6,
+    "accuracy": 0.6,
+    "by_language": {
+      "te-IN": {
+        "count": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "ta-IN": {
+        "count": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "bn-IN": {
+        "count": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "hi-IN": {
+        "count": 4,
+        "correct": 1,
+        "accuracy": 0.25
+      },
+      "ml-IN": {
+        "count": 1,
+        "correct": 0,
+        "accuracy": 0.0
+      }
+    }
+  },
+  "precision": {
+    "product_query": 0.9090909090909091,
+    "cart_update": 1.0,
+    "summarize_cart": 1.0,
+    "initiate_payment": 0,
+    "general_info": 0,
+    "error": 0.015384615384615385
+  },
+  "recall": {
+    "product_query": 0.5263157894736842,
+    "cart_update": 0.07142857142857142,
+    "summarize_cart": 0.23076923076923078,
+    "initiate_payment": 0.0,
+    "general_info": 0.0,
+    "error": 1.0
+  },
+  "f1_score": {
+    "product_query": 0.6666666666666666,
+    "cart_update": 0.13333333333333333,
+    "summarize_cart": 0.375,
+    "initiate_payment": 0,
+    "general_info": 0,
+    "error": 0.030303030303030307
+  },
+  "macro_precision": 0.7311188811188811,
+  "macro_recall": 0.4571283979178716,
+  "macro_f1": 0.562534766474384
+}

@@ -1,0 +1,50 @@
+Intent Classification Test Results - GPT-4O-MINI
+===============================================
+
+LLM: gpt-4o-mini
+Total test cases: 80
+Correct classifications: 72
+Overall accuracy: 90.00%
+
+Overall Performance Metrics:
+-------------------------
+Macro Precision: 0.9480
+Macro Recall: 0.9024
+Macro F1 Score: 0.9246
+
+Class-wise Metrics:
+------------------
+Intent Type         Accuracy  Precision Recall    F1 Score  Support   
+----------------------------------------------------------------------
+product_query       94.74%94.74%94.74%94.74%19        
+cart_update         92.86%100.00%92.86%96.30%14        
+summarize_cart      92.31%100.00%92.31%96.00%13        
+initiate_payment    61.54%100.00%61.54%76.19%13        
+general_info        100.00%74.07%100.00%85.11%20        
+error               100.00%100.00%100.00%100.00%1         
+
+Regional Language Performance:
+----------------------------
+Total regional test cases: 10
+Correct classifications: 10
+Overall regional accuracy: 100.00%
+
+Performance by Language:
+---------------------
+Language  Accuracy  Support   
+------------------------------
+bn-IN     100.00%2         
+hi-IN     100.00%4         
+ml-IN     100.00%1         
+ta-IN     100.00%2         
+te-IN     100.00%1         
+
+Confusion Matrix:
+---------------
+Actual\Predicted    product_query  cart_update    summarize_cart initiate_paymentgeneral_info   error          
+product_query       18             0              0              0              1              0              
+cart_update         1              13             0              0              0              0              
+summarize_cart      0              0              12             0              1              0              
+initiate_payment    0              0              0              8              5              0              
+general_info        0              0              0              0              20             0              
+error               0              0              0              0              0              1              

@@ -1,0 +1,81 @@
+query,language,expected_intent,actual_intent,confidence,is_correct
+I want to buy a new phone,en-IN,product_query,product_query,0.95,True
+Show me red sarees,en-IN,product_query,product_query,0.95,True
+What are the best laptops under 50000 rupees?,en-IN,product_query,product_query,0.95,True
+Do you have Nike shoes?,en-IN,product_query,error,0.0,False
+I'm looking for kitchen appliances,en-IN,product_query,error,0.0,False
+Show me Banarasi silk sarees,en-IN,product_query,product_query,0.95,True
+Search for Patanjali products,en-IN,product_query,product_query,0.95,True
+I need a washing machine with dryer,en-IN,product_query,error,0.0,False
+Are OnePlus mobiles available?,en-IN,product_query,error,0.0,False
+Show me cotton kurtas for men,en-IN,product_query,error,0.0,False
+Find me good quality spices,en-IN,product_query,product_query,0.95,True
+Do you sell Ayurvedic medicines?,en-IN,product_query,error,0.0,False
+Looking for gold jewelry,en-IN,product_query,product_query,0.95,True
+I need a good pressure cooker,en-IN,product_query,product_query,0.95,True
+Show me Diwali gift hampers,en-IN,product_query,error,0.0,False
+Add this product to my cart,en-IN,cart_update,error,0.0,False
+Remove the blue shirt from my cart,en-IN,cart_update,error,0.0,False
+I want to buy 3 of these,en-IN,cart_update,error,0.0,False
+Please add 2 more of this item,en-IN,cart_update,error,0.0,False
+Delete all items from my cart,en-IN,cart_update,error,0.0,False
+Increase the quantity of rice to 5kg,en-IN,cart_update,error,0.0,False
+Remove Himalaya face wash from cart,en-IN,cart_update,error,0.0,False
+I'd like to add this dupatta to my cart,en-IN,cart_update,error,0.0,False
+Add a dozen bananas to my order,en-IN,cart_update,error,0.0,False
+Put this masala in my basket,en-IN,cart_update,error,0.0,False
+I don't want the Haldiram's snacks anymore,en-IN,cart_update,error,0.0,False
+Change quantity of dal to 2kg,en-IN,cart_update,error,0.0,False
+What's in my cart?,en-IN,summarize_cart,error,0.0,False
+Show me my shopping cart,en-IN,summarize_cart,error,0.0,False
+Can you tell me what I've added so far?,en-IN,summarize_cart,error,0.0,False
+List all items in my cart,en-IN,summarize_cart,error,0.0,False
+What is my cart total?,en-IN,summarize_cart,error,0.0,False
+How many items are in my basket?,en-IN,summarize_cart,error,0.0,False
+Show me the contents of my cart,en-IN,summarize_cart,error,0.0,False
+What am I buying today?,en-IN,summarize_cart,error,0.0,False
+Review my shopping list,en-IN,summarize_cart,error,0.0,False
+What's the total cost of my items?,en-IN,summarize_cart,error,0.0,False
+I want to checkout,en-IN,initiate_payment,error,0.0,False
+Process my payment,en-IN,initiate_payment,error,0.0,False
+Pay with cash on delivery,en-IN,initiate_payment,error,0.0,False
+Can I pay using UPI?,en-IN,initiate_payment,error,0.0,False
+Complete my order,en-IN,initiate_payment,error,0.0,False
+Proceed to payment,en-IN,initiate_payment,error,0.0,False
+I want to pay through PhonePe,en-IN,initiate_payment,error,0.0,False
+Do you accept RuPay cards?,en-IN,initiate_payment,error,0.0,False
+Is Bharat QR payment available?,en-IN,initiate_payment,error,0.0,False
+I'd like to use my SBI debit card,en-IN,initiate_payment,error,0.0,False
+Does COD have extra charges?,en-IN,initiate_payment,error,0.0,False
+I want to use EMI option,en-IN,initiate_payment,error,0.0,False
+What is your return policy?,en-IN,general_info,error,0.0,False
+How long does shipping take?,en-IN,general_info,error,0.0,False
+Do you deliver to Chennai?,en-IN,general_info,error,0.0,False
+Is COD available?,en-IN,general_info,error,0.0,False
+How to contact customer service?,en-IN,general_info,error,0.0,False
+What are your store timings?,en-IN,general_info,error,0.0,False
+Do you have any Diwali offers?,en-IN,general_info,error,0.0,False
+How do I track my order?,en-IN,general_info,error,0.0,False
+What is the warranty period for electronics?,en-IN,general_info,error,0.0,False
+Do you have any offline stores in Mumbai?,en-IN,general_info,error,0.0,False
+Is there a minimum order value for free shipping?,en-IN,general_info,error,0.0,False
+How can I return a damaged product?,en-IN,general_info,error,0.0,False
+Do you ship internationally?,en-IN,general_info,error,0.0,False
+What's your GST number?,en-IN,general_info,error,0.0,False
+Are you open during lockdown?,en-IN,general_info,error,0.0,False
+I like this,en-IN,product_query,error,0.0,False
+Can you help me?,en-IN,general_info,error,0.0,False
+Yes,en-IN,general_info,error,0.0,False
+No,en-IN,general_info,error,0.0,False
+Maybe,en-IN,general_info,product_query,0.8,False
+,en-IN,error,error,0.0,True
+मुझे एक नया फोन चाहिए,hi-IN,product_query,error,0.0,False
+मेरे कार्ट में क्या है?,hi-IN,summarize_cart,summarize_cart,0.95,True
+इसे मेरे कार्ट में डालें,hi-IN,cart_update,error,0.0,False
+ऑर्डर पूरा करें,hi-IN,initiate_payment,error,0.0,False
+என் கார்ட்டில் என்ன இருக்கிறது?,ta-IN,summarize_cart,summarize_cart,0.95,True
+புதிய மொபைல் போன் வாங்க விரும்புகிறேன்,ta-IN,product_query,product_query,0.95,True
+ఈ ఉత్పత్తిని నా కార్ట్‌కి జోడించండి,te-IN,cart_update,cart_update,0.95,True
+തിരിച്ചയയ്ക്കൽ നയം എന്താണ്?,ml-IN,general_info,error,0.0,False
+আমি একটি নতুন মোবাইল কিনতে চাই,bn-IN,product_query,product_query,0.95,True
+আমার কার্টে কী কী আছে?,bn-IN,summarize_cart,summarize_cart,0.95,True
