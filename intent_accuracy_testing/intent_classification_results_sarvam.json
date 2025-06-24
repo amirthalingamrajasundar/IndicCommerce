@@ -1,32 +1,32 @@
 {
   "total_cases": 80,
-  "correct_classifications": 15,
-  "overall_accuracy": 0.1875,
+  "correct_classifications": 54,
+  "overall_accuracy": 0.675,
   "class_metrics": {
     "product_query": {
       "count": 19,
-      "correct": 10,
-      "accuracy": 0.5263157894736842
+      "correct": 11,
+      "accuracy": 0.5789473684210527
     },
     "cart_update": {
       "count": 14,
-      "correct": 1,
-      "accuracy": 0.07142857142857142
+      "correct": 11,
+      "accuracy": 0.7857142857142857
     },
     "summarize_cart": {
       "count": 13,
-      "correct": 3,
-      "accuracy": 0.23076923076923078
+      "correct": 12,
+      "accuracy": 0.9230769230769231
     },
     "initiate_payment": {
       "count": 13,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 8,
+      "accuracy": 0.6153846153846154
     },
     "general_info": {
       "count": 20,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 11,
+      "accuracy": 0.55
     },
     "error": {
       "count": 1,
@@ -36,44 +36,44 @@
   },
   "confusion_matrix": {
     "product_query": {
-      "product_query": 10,
+      "product_query": 11,
       "cart_update": 0,
       "summarize_cart": 0,
       "initiate_payment": 0,
       "general_info": 0,
-      "error": 9
+      "error": 8
     },
     "cart_update": {
       "product_query": 0,
-      "cart_update": 1,
+      "cart_update": 11,
       "summarize_cart": 0,
       "initiate_payment": 0,
       "general_info": 0,
-      "error": 13
+      "error": 3
     },
     "summarize_cart": {
       "product_query": 0,
       "cart_update": 0,
-      "summarize_cart": 3,
+      "summarize_cart": 12,
       "initiate_payment": 0,
       "general_info": 0,
-      "error": 10
+      "error": 1
     },
     "initiate_payment": {
       "product_query": 0,
       "cart_update": 0,
       "summarize_cart": 0,
-      "initiate_payment": 0,
-      "general_info": 0,
-      "error": 13
+      "initiate_payment": 8,
+      "general_info": 1,
+      "error": 4
     },
     "general_info": {
-      "product_query": 1,
+      "product_query": 2,
       "cart_update": 0,
       "summarize_cart": 0,
       "initiate_payment": 0,
-      "general_info": 0,
-      "error": 19
+      "general_info": 11,
+      "error": 7
     },
     "error": {
       "product_query": 0,
@@ -217,81 +217,81 @@
       "query": "Remove the blue shirt from my cart",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "I want to buy 3 of these",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Please add 2 more of this item",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Delete all items from my cart",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Increase the quantity of rice to 5kg",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Remove Himalaya face wash from cart",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "I'd like to add this dupatta to my cart",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Add a dozen bananas to my order",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Put this masala in my basket",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "I don't want the Haldiram's snacks anymore",
       "language": "en-IN",
       "expected_intent": "cart_update",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "cart_update",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Change quantity of dal to 2kg",
@@ -305,57 +305,57 @@
       "query": "What's in my cart?",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Show me my shopping cart",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Can you tell me what I've added so far?",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "List all items in my cart",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "What is my cart total?",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "How many items are in my basket?",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Show me the contents of my cart",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "What am I buying today?",
@@ -369,73 +369,73 @@
       "query": "Review my shopping list",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "What's the total cost of my items?",
       "language": "en-IN",
       "expected_intent": "summarize_cart",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "summarize_cart",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "I want to checkout",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Process my payment",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Pay with cash on delivery",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Can I pay using UPI?",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Complete my order",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Proceed to payment",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "I want to pay through PhonePe",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Do you accept RuPay cards?",
@@ -457,16 +457,16 @@
       "query": "I'd like to use my SBI debit card",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "initiate_payment",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Does COD have extra charges?",
       "language": "en-IN",
       "expected_intent": "initiate_payment",
-      "actual_intent": "error",
-      "confidence": 0.0,
+      "actual_intent": "general_info",
+      "confidence": 0.95,
       "is_correct": false
     },
     {
@@ -481,17 +481,17 @@
       "query": "What is your return policy?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "How long does shipping take?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Do you deliver to Chennai?",
@@ -513,17 +513,17 @@
       "query": "How to contact customer service?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "What are your store timings?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Do you have any Diwali offers?",
@@ -537,57 +537,57 @@
       "query": "How do I track my order?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "What is the warranty period for electronics?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.9,
+      "is_correct": true
     },
     {
       "query": "Do you have any offline stores in Mumbai?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Is there a minimum order value for free shipping?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "How can I return a damaged product?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Do you ship internationally?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "What's your GST number?",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "general_info",
+      "confidence": 0.95,
+      "is_correct": true
     },
     {
       "query": "Are you open during lockdown?",
@@ -601,9 +601,9 @@
       "query": "I like this",
       "language": "en-IN",
       "expected_intent": "product_query",
-      "actual_intent": "error",
-      "confidence": 0.0,
-      "is_correct": false
+      "actual_intent": "product_query",
+      "confidence": 0.8,
+      "is_correct": true
     },
     {
       "query": "Can you help me?",
@@ -617,8 +617,8 @@
       "query": "Yes",
       "language": "en-IN",
       "expected_intent": "general_info",
-      "actual_intent": "error",
-      "confidence": 0.0,
+      "actual_intent": "product_query",
+      "confidence": 0.8,
       "is_correct": false
     },
     {
@@ -731,6 +731,11 @@
     "correct": 6,
     "accuracy": 0.6,
     "by_language": {
+      "hi-IN": {
+        "count": 4,
+        "correct": 1,
+        "accuracy": 0.25
+      },
       "te-IN": {
         "count": 1,
         "correct": 1,
@@ -746,11 +751,6 @@
         "correct": 2,
         "accuracy": 1.0
       },
-      "hi-IN": {
-        "count": 4,
-        "correct": 1,
-        "accuracy": 0.25
-      },
       "ml-IN": {
         "count": 1,
         "correct": 0,
@@ -759,30 +759,30 @@
     }
   },
   "precision": {
-    "product_query": 0.9090909090909091,
+    "product_query": 0.8461538461538461,
     "cart_update": 1.0,
     "summarize_cart": 1.0,
-    "initiate_payment": 0,
-    "general_info": 0,
-    "error": 0.015384615384615385
+    "initiate_payment": 1.0,
+    "general_info": 0.9166666666666666,
+    "error": 0.041666666666666664
   },
   "recall": {
-    "product_query": 0.5263157894736842,
-    "cart_update": 0.07142857142857142,
-    "summarize_cart": 0.23076923076923078,
-    "initiate_payment": 0.0,
-    "general_info": 0.0,
+    "product_query": 0.5789473684210527,
+    "cart_update": 0.7857142857142857,
+    "summarize_cart": 0.9230769230769231,
+    "initiate_payment": 0.6153846153846154,
+    "general_info": 0.55,
     "error": 1.0
   },
   "f1_score": {
-    "product_query": 0.6666666666666666,
-    "cart_update": 0.13333333333333333,
-    "summarize_cart": 0.375,
-    "initiate_payment": 0,
-    "general_info": 0,
-    "error": 0.030303030303030307
+    "product_query": 0.6875,
+    "cart_update": 0.88,
+    "summarize_cart": 0.9600000000000001,
+    "initiate_payment": 0.761904761904762,
+    "general_info": 0.6874999999999999,
+    "error": 0.07999999999999999
   },
-  "macro_precision": 0.7311188811188811,
-  "macro_recall": 0.4571283979178716,
-  "macro_f1": 0.562534766474384
+  "macro_precision": 0.8007478632478633,
+  "macro_recall": 0.7421871987661461,
+  "macro_f1": 0.7703562232439729
 }
