@@ -15,7 +15,6 @@ import mimetypes
 import base64
 from google.cloud import storage
 from pydub import AudioSegment
-from src.utils.ngrok import get_ngrok_url_with_retry
 
 # Initialize Sarvam AI client
 sarvam_api_key = os.environ.get("SARVAM_API_KEY")
@@ -128,12 +127,13 @@ def download_audio_for_sarvam(media_url):
     os.rename(original_path, new_path)
     original_path = new_path
     
-    # Save a copy to a persistent location for debugging
-    debug_dir = "/app/debug_audio"
-    os.makedirs(debug_dir, exist_ok=True)
-    debug_file = f"{debug_dir}/audio_original_{int(time.time())}{extension}"
-    shutil.copy(original_path, debug_file)
-    logger.info(f"Original audio saved to: {debug_file}")
+    if os.environ.get("ENV") == "dev":
+        # Save a copy to a persistent location for debugging
+        debug_dir = "/app/debug_audio"
+        os.makedirs(debug_dir, exist_ok=True)
+        debug_file = f"{debug_dir}/audio_original_{int(time.time())}{extension}"
+        shutil.copy(original_path, debug_file)
+        logger.info(f"Original audio saved to: {debug_file}")
 
     # Convert to WAV if not already in WAV format
     if audio_format != 'wav':
@@ -273,45 +273,24 @@ def text_to_speech(text, language_code=None):
             # Generate filename
             filename = f"speech_{int(time.time())}_{language_code or 'en'}.ogg"
 
-            if os.environ.get("ENV") == "prod":
-                bucket_name = os.environ.get("BUCKET_NAME")
-                if not bucket_name:
-                    raise ValueError("BUCKET_NAME is not set")
+            bucket_name = os.environ.get("BUCKET_NAME")
+            if not bucket_name:
+                raise ValueError("BUCKET_NAME is not set")
 
-                # Export audio to OGG in memory
-                ogg_buffer = io.BytesIO()
-                audio.export(ogg_buffer, format="ogg", codec="libopus")
-                ogg_buffer.seek(0)
+            # Export audio to OGG in memory
+            ogg_buffer = io.BytesIO()
+            audio.export(ogg_buffer, format="ogg", codec="libopus")
+            ogg_buffer.seek(0)
 
-                # Upload to GCS
-                storage_client = storage.Client()
-                bucket = storage_client.bucket(bucket_name)
-                blob = bucket.blob(f"audio/{filename_ogg}")
-                blob.upload_from_file(ogg_buffer, content_type="audio/ogg")
+            # Upload to GCS
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(bucket_name)
+            blob = bucket.blob(f"audio/{filename}")
+            blob.upload_from_file(ogg_buffer, content_type="audio/ogg")
 
-                logger.info(f"Audio uploaded to GCS: {blob.public_url}")
-                return blob.public_url
-            else:
-                # In development, save to local static/audio directory
-                logger.info("Saving audio to local static/audio directory")
-
-                # Build path to static/audio directory
-                current_dir = os.path.dirname(os.path.abspath(__file__))
-                project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
-                static_audio_dir = os.path.join(project_root, "static", "audio")
-                os.makedirs(static_audio_dir, exist_ok=True)
-
-                static_audio_path = os.path.join(static_audio_dir, filename)
-                
-                audio.export(static_audio_path, format="ogg", codec="libopus")
-                logger.info(f"OGG audio saved locally: {static_audio_path}")
-
-                logger.info(f"Audio saved to: {static_audio_path}")
-
-                ngrok_url = get_ngrok_url_with_retry()
-                return f"{ngrok_url}/static/audio/{filename}" if ngrok_url else None
+            logger.info(f"Audio uploaded to GCS: {blob.public_url}")
+            return blob.public_url
         return None
-
     except Exception as e:
         logger.error(f"Error generating speech: {e}")
         return None
