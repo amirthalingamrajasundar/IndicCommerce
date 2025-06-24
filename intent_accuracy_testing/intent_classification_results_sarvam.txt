@@ -3,48 +3,48 @@ Intent Classification Test Results - SARVAM
 
 LLM: sarvam
 Total test cases: 80
-Correct classifications: 54
-Overall accuracy: 67.50%
+Correct classifications: 72
+Overall accuracy: 90.00%
 
 Overall Performance Metrics:
 -------------------------
-Macro Precision: 0.8007
-Macro Recall: 0.7422
-Macro F1 Score: 0.7704
+Macro Precision: 0.8353
+Macro Recall: 0.9092
+Macro F1 Score: 0.8707
 
 Class-wise Metrics:
 ------------------
 Intent Type         Accuracy  Precision Recall    F1 Score  Support   
 ----------------------------------------------------------------------
-product_query       57.89%84.62%57.89%68.75%19        
+product_query       100.00%90.48%100.00%95.00%19        
 cart_update         78.57%100.00%78.57%88.00%14        
-summarize_cart      92.31%100.00%92.31%96.00%13        
-initiate_payment    61.54%100.00%61.54%76.19%13        
-general_info        55.00%91.67%55.00%68.75%20        
-error               100.00%4.17%100.00%8.00%1         
+summarize_cart      100.00%100.00%100.00%100.00%13        
+initiate_payment    76.92%100.00%76.92%86.96%13        
+general_info        90.00%85.71%90.00%87.80%20        
+error               100.00%25.00%100.00%40.00%1         
 
 Regional Language Performance:
 ----------------------------
 Total regional test cases: 10
-Correct classifications: 6
-Overall regional accuracy: 60.00%
+Correct classifications: 10
+Overall regional accuracy: 100.00%
 
 Performance by Language:
 ---------------------
 Language  Accuracy  Support   
 ------------------------------
-hi-IN     25.00%4         
-te-IN     100.00%1         
 ta-IN     100.00%2         
+te-IN     100.00%1         
+ml-IN     100.00%1         
 bn-IN     100.00%2         
-ml-IN     0.00%1         
+hi-IN     100.00%4         
 
 Confusion Matrix:
 ---------------
 Actual\Predicted    product_query  cart_update    summarize_cart initiate_paymentgeneral_info   error          
-product_query       11             0              0              0              0              8              
+product_query       19             0              0              0              0              0              
 cart_update         0              11             0              0              0              3              
-summarize_cart      0              0              12             0              0              1              
-initiate_payment    0              0              0              8              1              4              
-general_info        2              0              0              0              11             7              
+summarize_cart      0              0              13             0              0              0              
+initiate_payment    0              0              0              10             3              0              
+general_info        2              0              0              0              18             0              
 error               0              0              0              0              0              1              
