@@ -4,7 +4,7 @@ flask_cors
 werkzeug
 python-dotenv
 requests
-gunicorn
+# gunicorn
 numpy
 
 # WhatsApp integration
@@ -30,7 +30,7 @@ google-cloud-firestore
 # razorpay
 
 # Testing
-pytest
-coverage
-pytest-cov
-pytest-mock
+# pytest
+# coverage
+# pytest-cov
+# pytest-mock
