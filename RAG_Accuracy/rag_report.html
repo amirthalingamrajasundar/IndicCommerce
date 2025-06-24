@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>RAG Evaluation Report</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  h2, h3 { color: #333; }
+  p { color: #555; }
+</style>
+</head>
+<body>
+<h2>RAG Evaluation Results</h2>
+<h3>Detailed Query Results</h3>
+<table>
+<thead><tr>
+<th>Query</th>
+<th>Retrieved Product ID (Top 1)</th>
+<th>Relevant Product ID (Ground Truth)</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1-Score</th>
+</tr></thead><tbody>
+<tr>
+<td>A white short-sleeved cotton top.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Accessories with RFID blocking.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Activity tracker with heart rate monitor.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Adjustable office chair.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Adjustable office chairs.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Any white t-shirts?</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Are there any affordable noise-cancelling headphones that are over-ear?</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Are there any ergonomic furniture pieces that are also aesthetically pleasing and made of wood?</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Athletic footwear with extra cushioning.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Backpack for work or travel.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Backpacks for carrying a laptop.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Backpacks.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Backpacks.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bag suitable for 15.6-inch laptop.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bags for books and laptops.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bags for laptops.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bands for tracking activity.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bands that track activity.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Basic white t-shirt.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Block print kurti.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Blue jeans.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bluetooth noise-cancelling earphones.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bluetooth speakers.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Bluetooth speakers.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Brown leather wallet.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Browse your home goods, focusing on items that are both decorative and functional.</td>
+<td>prod13</td>
+<td>prod8</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Can I find a comfortable t-shirt for daily wear?</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Can you find a blue shirt that is stain-resistant and within fifteen hundred?</td>
+<td>prod1</td>
+<td>prod11</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Can you show me blue denim jeans with a straight cut that are pre-shrunk?</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Can you suggest black casual sneakers that are easy to slip on and off?</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Can you suggest green casual sneakers for women?</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Casual sneakers with cushioned sole.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Casual sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Casual white top for everyday.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Chair for computer desk.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Chairs.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Classic blue jeans.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Classic blue trousers made of denim.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable basic tee.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable casual footwear.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable casual sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable ethnic wear.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable seating for workspace.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable shoes for jogging.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Comfortable wireless pointing device.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Compact leather billfold.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Computer mouse without cable.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Computer mouse.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Computer pointing devices.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Cotton kurti for women.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Cotton kurtis.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Cushioned running footwear.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Deep bass Bluetooth speaker.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Denim trousers.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Digital watch for men/women.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Digital watches.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Do you have any backpacks for laptops?</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Do you have any smart phones with a large screen?</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Do you have cameras with optical zoom and high-definition video recording?</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Durable blue jeans.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Durable laptop bag.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Earbuds with active noise cancellation.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Earbuds.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Earbuds.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Ergonomic chair for long office hours.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Ergonomic chairs for office use.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Ergonomic mouse for computer.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Ergonomic seating for my office.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Ethnic kurti with traditional designs.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Everyday denim bottom wear.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Everyday sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Everyday use sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Eyewear for sun protection.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Eyewear that protects from UV rays.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Fashionable sun goggles.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Find Bluetooth earbuds that offer clear call quality and are sweat-resistant.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Find me an inexpensive gray wallet with multiple card slots.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Find speakers that offer 360-degree sound and are waterproof.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Fitness band for sleep tracking.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Fitness bands.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Fitness bands.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Fitness devices.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Footwear for casual use.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Furniture for home office.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Genuine leather wallet with card slots.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Goggles.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Headphones with noise cancellation.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Headphones without wires.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Health monitoring bands.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Heart rate monitors.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>High-resolution display phone.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I need a black wallet with a minimalist design, not more than ₹1000.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I need a white blouse with a V-neck design.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I need a white men's shirt that is wrinkle-resistant and priced under eight hundred.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I need a wireless computer mouse.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I need orange running shoes with advanced cushioning technology for long distances.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I want a comfortable white t-shirt suitable for everyday wear, possibly with a subtle print.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I want a yellow casual shirt that is easy to care for and doesn't require ironing.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I'm interested in accessories that protect against RFID, like wallets, in a classic leather finish.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I'm interested in portable Bluetooth speakers.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I'm looking for an office chair with lumbar support and adjustable armrests.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I'm looking for purple canvas shoes that are slip-on style.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>I'm looking for white apparel with subtle embroidery or detailing, maximum ₹2500.</td>
+<td>prod11</td>
+<td>prod1</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>I'm searching for an apparel item that is white and costs less than five hundred rupees.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Is there an office chair with adjustable features?</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Jeans for everyday wear.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Jeans.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Kurtis for festive occasions.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Kurtis with traditional prints.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Kurtis.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Kurtis.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Laptop backpacks.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Laptop bags.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Latest model Android phone.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Leather wallets.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Long battery life portable speaker.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Looking for a fitness tracker with heart rate monitoring.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Looking for a wallet that is genuine leather.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Looking for durable jeans.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mesh back chair with adjustable height.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mice that are wireless.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mice with adjustable DPI.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mice.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mobile phones.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mobile with a 6.5-inch screen.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Modern digital timepiece.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Monitor heart rate activity band.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Mouse with adjustable DPI.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Need good running shoes.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>New smartphone release.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>New smartphones.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Noise-cancelling earbuds.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Office chairs.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Office chairs.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Phone with a 64MP camera.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Phones with high-resolution cameras.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Plain white cotton shirt.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Portable Bluetooth speakers.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Portable speaker with powerful bass.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Portable wireless audio device.</td>
+<td>prod9</td>
+<td>prod5</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Printed cotton kurtis.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>RFID wallets.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Running shoes with cushioning.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Running shoes.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Security wallet.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Shoes designed for running comfort.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me a black polo shirt made of pique cotton, priced up to twelve hundred.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me cotton shirts in yellow with a relaxed fit.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me earbuds that are wireless.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me everything from the furniture section that is made of solid wood.</td>
+<td>prod8</td>
+<td>prod8</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me latest smartphones.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me men's clothing suitable for a semi-formal occasion.</td>
+<td>prod13</td>
+<td>prod2</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Show me running shoes in blue that provide arch support.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me sunglasses with UV protection.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Show me traditional kurtis for women.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Slip-on casual sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Slip-on sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Smart band for activity.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Smartphones with large displays.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Smartphones.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sneakers for casual outings.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sneakers for daily walking.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sneakers.</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Speaker with 12-hour playback.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Speakers for music on the go.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Speakers with deep bass.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Speakers with long battery life.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Speakers.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sports shoes for long distances.</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sporty waterproof watch.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Standard blue denim.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Straight fit denim pants.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Stylish digital watches.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Stylish eyewear for sun.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Stylish watch with LED display.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Suggest a portable speaker with deep bass and a battery life of over 10 hours.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Suggest smart home devices that can be integrated with voice assistants.</td>
+<td>prod5</td>
+<td>prod9</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Suggest tablet computers with at least 64GB storage and a high-resolution display.</td>
+<td>prod3</td>
+<td>prod3</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Suggest wearable technology that monitors heart rate continuously.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sunglasses with eye protection.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>T-shirt made of 100% cotton.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>T-shirts.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Tell me about your denim pants.</td>
+<td>prod2</td>
+<td>prod2</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Traditional Indian apparel.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Traditional Indian top.</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Trendy sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Trendy sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>UV-protected unisex sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Unisex sunglasses.</td>
+<td>prod15</td>
+<td>prod15</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wallet with RFID blocking technology.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wallets with security features.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wallets.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wallets.</td>
+<td>prod6</td>
+<td>prod6</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Watches that are waterproof.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Watches with LED display.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Watches.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Water-resistant backpack for laptops.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Waterproof digital watches.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Waterproof digital wrist watch.</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Waterproof laptop carrier.</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wearable health tracker.</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What are your casual sneakers like?</td>
+<td>prod13</td>
+<td>prod13</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What computer components are available for upgrading a desktop PC?</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What ethnic wear kurtis are available with contemporary designs?</td>
+<td>prod11</td>
+<td>prod11</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What kind of digital watches do you sell?</td>
+<td>prod7</td>
+<td>prod7</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What office wear for women combines comfort with professional style?</td>
+<td>prod8</td>
+<td>prod11</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>What outerwear is available that is both windproof and water-resistant?</td>
+<td>prod10</td>
+<td>prod10</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What sports products are currently popular for outdoor activities?</td>
+<td>prod4</td>
+<td>prod4</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>What wearable tech gadgets are available for fitness tracking beyond basic steps?</td>
+<td>prod12</td>
+<td>prod12</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>White top made of cotton.</td>
+<td>prod1</td>
+<td>prod1</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless earbuds for audio.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless in-ear headphones.</td>
+<td>prod5</td>
+<td>prod5</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless mice.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless optical mouse.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless optical mouse.</td>
+<td>prod14</td>
+<td>prod14</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+<tr>
+<td>Wireless speaker for outdoor use.</td>
+<td>prod9</td>
+<td>prod9</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+</tr>
+</tbody></table>
+<h3>Evaluation Summary</h3>
+<p>Total queries evaluated: 218</p>
+<p>Average Precision: 0.9679</p>
+<p>Average Recall: 0.9679</p>
+<p>Average F1-Score: 0.9679</p>
+<p style='font-style: italic; color: #555;'>Note: Only queries with exactly one ground truth product were included in this report.</p>
+<p style='font-style: italic; color: #555;'>The accuracy of these metrics depends entirely on the correctness of the 'ground_truth' dictionary and the relevance of the sample products.</p>
+</body>
+</html>

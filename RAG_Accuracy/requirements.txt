@@ -1,0 +1,37 @@
+# Core dependencies
+flask
+flask_cors
+werkzeug
+python-dotenv
+requests
+gunicorn
+numpy
+pandas
+
+# WhatsApp integration
+twilio
+
+# Speech processing
+sarvamai
+pydub
+
+# NLP and RAG
+langchain
+langchain-openai
+langchain-chroma
+langgraph
+chromadb
+
+google-cloud-storage
+
+# Database
+google-cloud-firestore
+
+# Payment processing
+# razorpay
+
+# Testing
+pytest
+coverage
+pytest-cov
+pytest-mock

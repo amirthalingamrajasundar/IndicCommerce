@@ -1,0 +1,27 @@
+FROM python:3.9-slim
+
+# Install system dependencies including a newer sqlite
+RUN apt-get update && apt-get install -y \
+    wget build-essential libsqlite3-dev sqlite3 \
+    && apt-get clean
+
+# Use a known valid version of SQLite (3.41.2)
+RUN wget https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz && \
+    tar xzf sqlite-autoconf-3410200.tar.gz && \
+    cd sqlite-autoconf-3410200 && \
+    ./configure && make && make install && \
+    cd .. && rm -rf sqlite-autoconf-3410200*
+
+# Set environment path to the newly installed sqlite
+ENV LD_LIBRARY_PATH="/usr/local/lib"
+ENV PATH="/usr/local/bin:$PATH"
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy rest of the app
+COPY . /app
+WORKDIR /app
+
+CMD ["python", "app.py"]
