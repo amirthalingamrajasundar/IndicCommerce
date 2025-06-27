@@ -1,0 +1,18 @@
+# # Sample environment variables for the agentic ecommerce app
+# # Replace with actual values and copy this file to '.env' in project root directory
+
+# # Server settings
+# PORT=5000
+# ENVIRONMENT=development
+
+# # Sarvam AI API
+# SARVAM_API_KEY=<secret>
+
+# # WhatsApp Integration (via Twilio)
+# TWILIO_ACCOUNT_SID=<secret>
+# TWILIO_AUTH_TOKEN=<secret>
+# TWILIO_WHATSAPP_NUMBER=+14155238886
+
+# NGROK_AUTHTOKEN=<secret>
+
+# OPENAI_API_KEY=<secret>

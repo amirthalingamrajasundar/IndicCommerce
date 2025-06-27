@@ -6,10 +6,14 @@ import os
 import requests
 import tempfile
 import logging
+import io
+import re
 from sarvamai import SarvamAI
 import shutil
 import time
 import mimetypes
+import base64
+from google.cloud import storage
 from pydub import AudioSegment
 
 # Initialize Sarvam AI client
@@ -123,12 +127,13 @@ def download_audio_for_sarvam(media_url):
     os.rename(original_path, new_path)
     original_path = new_path
     
-    # Save a copy to a persistent location for debugging
-    debug_dir = "/app/debug_audio"
-    os.makedirs(debug_dir, exist_ok=True)
-    debug_file = f"{debug_dir}/audio_original_{int(time.time())}{extension}"
-    shutil.copy(original_path, debug_file)
-    logger.info(f"Original audio saved to: {debug_file}")
+    if os.environ.get("ENV") == "dev":
+        # Save a copy to a persistent location for debugging
+        debug_dir = "/app/debug_audio"
+        os.makedirs(debug_dir, exist_ok=True)
+        debug_file = f"{debug_dir}/audio_original_{int(time.time())}{extension}"
+        shutil.copy(original_path, debug_file)
+        logger.info(f"Original audio saved to: {debug_file}")
 
     # Convert to WAV if not already in WAV format
     if audio_format != 'wav':
@@ -159,11 +164,14 @@ def download_audio_for_sarvam(media_url):
             # Verify the WAV file was created successfully
             if not os.path.exists(wav_path) or os.path.getsize(wav_path) == 0:
                 raise Exception("Converted WAV file is empty or doesn't exist")
-            
-            # Save a debug copy of the converted WAV file
-            debug_wav = f"{debug_dir}/audio_converted_{int(time.time())}.wav"
-            shutil.copy(wav_path, debug_wav)
-            logger.info(f"Converted WAV audio saved to: {debug_wav} (size: {os.path.getsize(wav_path)} bytes)")
+              # Save a debug copy of the converted WAV file
+            try:
+                debug_wav = os.path.join(debug_dir, f"audio_converted_{int(time.time())}.wav")
+                shutil.copy(wav_path, debug_wav)
+                logger.info(f"Converted WAV audio saved to: {debug_wav} (size: {os.path.getsize(wav_path)} bytes)")
+            except Exception as e:
+                logger.warning(f"Could not save debug WAV audio: {e}")
+                # Continue execution even if debug save fails
             
             # Remove the original temporary file
             os.unlink(original_path)
@@ -233,14 +241,13 @@ def translate_audio(audio_file_path):
         logger.error(f"Error translating audio: {e}")
         return ["Sorry, I couldn't translate the audio."]
 
-def text_to_speech(text, language_code=None, speaker_gender='Female'):
+def text_to_speech(text, language_code=None):
     """
     Convert text to speech using Sarvam AI.
     
     Args:
         text: Text to convert
         language_code: Target language code (e.g., 'hi-IN')
-        speaker_gender: Speaker gender ('Male' or 'Female')
         
     Returns:
         str: Path to the generated audio file, or None if failed
@@ -252,25 +259,43 @@ def text_to_speech(text, language_code=None, speaker_gender='Female'):
         logger.info(f"Calling text to speech sarvam API")
         response = sarvam_client.text_to_speech.convert(
             text=text,
-            target_language_code=language_code,
-            speaker_gender=speaker_gender
+            target_language_code=language_code
         )
-        logger.info(f"TTS response {response}")
         
-        # Save the audio to a temporary file
-        audio_data = response.audios[0]
-        if audio_data:
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as temp_file:
-                temp_file.write(audio_data)
-                return temp_file.name
-        
+        audio_base64 = response.audios[0]
+
+        if audio_base64:
+            # Decode base64 to bytes
+            wav_bytes = base64.b64decode(audio_base64)
+
+            audio = AudioSegment.from_file(io.BytesIO(wav_bytes), format="wav")
+
+            # Generate filename
+            filename = f"speech_{int(time.time())}_{language_code or 'en'}.ogg"
+
+            bucket_name = os.environ.get("BUCKET_NAME")
+            if not bucket_name:
+                raise ValueError("BUCKET_NAME is not set")
+
+            # Export audio to OGG in memory
+            ogg_buffer = io.BytesIO()
+            audio.export(ogg_buffer, format="ogg", codec="libopus")
+            ogg_buffer.seek(0)
+
+            # Upload to GCS
+            storage_client = storage.Client()
+            bucket = storage_client.bucket(bucket_name)
+            blob = bucket.blob(f"audio/{filename}")
+            blob.upload_from_file(ogg_buffer, content_type="audio/ogg")
+
+            logger.info(f"Audio uploaded to GCS: {blob.public_url}")
+            return blob.public_url
         return None
-        
     except Exception as e:
-        print(f"Error generating speech: {e}")
+        logger.error(f"Error generating speech: {e}")
         return None
 
-def translate_and_speak(text, source_language_code='auto', target_language_code='ta-IN', speaker_gender='Female'):
+def translate_and_speak(text, source_language_code='auto', target_language_code='ta-IN'):
     """
     Translate text and convert to speech.
     
@@ -278,18 +303,18 @@ def translate_and_speak(text, source_language_code='auto', target_language_code=
         text: Text to translate and convert
         source_language_code: Source language code
         target_language_code: Target language code
-        speaker_gender: Speaker gender
         
     Returns:
         tuple: (translated_text, audio_file_path)
     """
     try:
+        cleaned_text = re.sub(r'[^\w\s]', '', text)
+
         # First translate the text
         translation_response = sarvam_client.text.translate(
-            input=text,
+            input=cleaned_text,
             source_language_code=source_language_code,
-            target_language_code=target_language_code,
-            speaker_gender=speaker_gender
+            target_language_code=target_language_code
         )
 
         logger.info(f"Translation response: {translation_response}")
@@ -297,12 +322,12 @@ def translate_and_speak(text, source_language_code='auto', target_language_code=
         translated_text = translation_response.translated_text
         
         # Then convert to speech
-        audio_path = text_to_speech(translated_text, target_language_code, speaker_gender)
+        audio_file_name = text_to_speech(translated_text, target_language_code)
         
-        return (translated_text, audio_path)
+        return (translated_text, audio_file_name)
         
     except Exception as e:
-        print(f"Error translating and generating speech: {e}")
-        return (text, None)
+        logger.error(f"Error translating and generating speech: {e}")
+        return (text, None, None)
 
 

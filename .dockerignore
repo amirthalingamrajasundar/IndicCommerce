@@ -1,0 +1,6 @@
+__*
+.py*
+venv/
+debug_audio/
+static/audio/*
+iac/*
