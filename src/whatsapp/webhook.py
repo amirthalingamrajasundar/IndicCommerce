@@ -2,12 +2,11 @@
 WhatsApp webhook handler for receiving and processing messages.
 """
 
-from flask import Blueprint, request, Response
-import json
+from flask import Blueprint, request
 import os
 import logging
 from twilio.rest import Client
-from twilio.twiml.messaging_response import Body, Media, Message, MessagingResponse
+from twilio.twiml.messaging_response import MessagingResponse
 
 from src.speech_processing.processor import download_audio_for_sarvam
 from src.agents.ecom_agent import compiled_graph
@@ -33,29 +32,38 @@ def configure_whatsapp_routes(app):
     """Configure WhatsApp webhook routes."""
     app.register_blueprint(whatsapp_blueprint)
 
-def create_whatsapp_response(agent_response):
+def send_whatsapp_messages(to_number, agent_response):
     """
-    Create a WhatsApp response message based on the agent's response.
-    
+    Sends text, image, and audio messages separately using Twilio REST API.
+
     Args:
-        agent_response: The response from the agent.
-        
-    Returns:
-        MessagingResponse: The Twilio MessagingResponse object.
+        to_number: The recipient WhatsApp number (e.g., 'whatsapp:+919xxxxxx').
+        agent_response: A dict containing keys like 'text', 'image_url', 'voice_url'.
     """
-    response = MessagingResponse()
+    logger.info(f"Creating WhatsApp response: {agent_response}")
+    
+    from_whatsapp_number = 'whatsapp:' + os.environ.get('TWILIO_WHATSAPP_NUMBER')
 
     if 'text' in agent_response:
-        text_message = Message()
-        text_message.body(agent_response['text'])
-        response.append(text_message)
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            body=agent_response['text']
+        )
 
-    if 'voice_path' in agent_response:
-        audio_message = Message()
-        audio_message.media(agent_response['voice_path'])
-        response.append(audio_message)
-    
-    return response
+    if 'image_url' in agent_response:
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            media_url=[agent_response['image_url']]
+        )
+
+    if 'voice_url' in agent_response:
+        twilio_client.messages.create(
+            from_=from_whatsapp_number,
+            to=to_number,
+            media_url=[agent_response['voice_url']]
+        )
 
 @whatsapp_blueprint.route('/webhook', methods=['POST'])
 def webhook(): 
@@ -85,8 +93,11 @@ def webhook():
             
             audio_file = download_audio_for_sarvam(media_url)
 
-            agent_response = compiled_graph.invoke({"regional_audio_path": audio_file})
-            response = create_whatsapp_response(agent_response["response"])
+            agent_response = compiled_graph.invoke({
+                "user_id": sender_id, 
+                "regional_audio_path": audio_file
+            })
+            response = send_whatsapp_messages(sender_id, agent_response["response"])
 
         except Exception as e:
             logger.error(f"Error processing voice message: {e}", exc_info=True)                    
