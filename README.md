@@ -33,7 +33,7 @@ The system consists of the following components:
 ## Screenshots
 
 ### Indic Commerce in action
-![Product Search](docs/screenshots/product-search.png)
+![Product Search](docs/screenshots/product_search.png)
 *An exchange between a user and the system*
 
 
